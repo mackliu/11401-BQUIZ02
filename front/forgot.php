@@ -4,7 +4,15 @@
         <div>
             <input type="text" name="eamil" id="email">
         </div>
+        <div id="answer"></div>
         <div>
-            <button>尋找</button>
+            <button onclick="search()">尋找</button>
         </div>
 </fieldset>
+<script>
+function search(){
+    $.get("./api/chk_email.php",{email:$("#email").val()},(res)=>{
+        $("#answer").html(res);
+    })
+}    
+</script>
