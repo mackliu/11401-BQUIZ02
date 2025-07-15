@@ -1,7 +1,27 @@
 <div class="nav" style="margin-bottom:20px;">
     目前位置：首頁 > 人氣文章區
 </div>
+<style>
+    .title{
+        cursor: pointer;
+        color: blue;
+    }
+    .title:hover{
+        text-decoration: underline;
+        color:green;
+    }
+    .pop {
+        background: rgba(51, 51, 51, 0.8);
+        color: #FFF;
+        height:400px;
+        width: 500px;
+        position: fixed;
+        display: none;
+        z-index: 9999;
+        overflow: auto;
 
+    }
+</style>
 <table style="width:95%;margin:auto">
     <tr class="ct">
         <td width="20%">標題</td>
@@ -18,10 +38,17 @@
     foreach($rows as $idx => $row):
 ?>
     <tr>
-        <td><?=$row['title'];?></td>
+        <td class='title'><?=$row['title'];?></td>
         <td>
             <div class="short"><?=mb_substr($row['text'],0,30);?>...</div>
-            <div class="all"></div>
+            <div class="all">
+                <div id="alerr" class="pop">
+                    <h2><?=$Type[$row['type']];?></h2>
+                    <pre id="ssaa">
+                        <?=$row['text'];?>
+                    </pre>
+                </div>
+            </div>
         </td>
         <td></td>
     </tr>
@@ -49,3 +76,13 @@ if($now+1<=$pages){
 
 
 </div>
+<script>
+$(".title").hover(
+    function(){
+        $(this).next().find(".pop").show()
+    },
+    function(){
+        $(this).next().find(".pop").hide()
+    }
+)
+</script>
