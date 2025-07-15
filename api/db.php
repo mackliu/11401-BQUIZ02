@@ -144,6 +144,7 @@ private function arraytosql($array){
 
 $User=new DB('users');
 $Visit=new DB("visit");
+$News=new DB("news");
 /* 測試資料庫連線及功能正常
 $User->save(['acc'=>'test','pw'=>'5678','email'=>'test@labor.gov.tw']);
 $User->save(['acc'=>'mem01','pw'=>'mem01','email'=>'mem01@labor.gov.tw']);
