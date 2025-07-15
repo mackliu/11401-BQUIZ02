@@ -51,12 +51,13 @@
             </div>
         </td>
         <td>
-            <span>3</span>個人說
+            <span><?=$row['good'];?></span>個人說
             <img src="./icon/02B03.jpg" style="width:18px;">
             <?php 
             if(isset($_SESSION['login'])):
+                $chk=$Log->count(['news'=>$row['id'],'user'=>$_SESSION['login']]);
             ?>
-            <a >-讚</a>
+            <a href="#" onclick="good(<?=$row['id'];?>)"><?=($chk)?'-收回讚':'-讚';?></a>
             <?php
             endif;
                 ?>
@@ -96,4 +97,11 @@ $(".title").hover(
         $(this).next().find(".pop").hide()
     }
 )
+
+    function good(news){
+        $.post("./api/good.php",{news},function(){
+                location.reload();
+        })
+    }
+
 </script>
