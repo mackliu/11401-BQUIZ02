@@ -57,7 +57,7 @@
             if(isset($_SESSION['login'])):
                 $chk=$Log->count(['news'=>$row['id'],'user'=>$_SESSION['login']]);
             ?>
-            <a href="#" onclick="good(<?=$row['id'];?>)"><?=($chk)?'-收回讚':'-讚';?></a>
+            <a href="#" onclick="good(<?=$row['id'];?>,this)"><?=($chk)?'-收回讚':'-讚';?></a>
             <?php
             endif;
                 ?>
@@ -98,9 +98,23 @@ $(".title").hover(
     }
 )
 
-    function good(news){
+    function good(news,dom){
         $.post("./api/good.php",{news},function(){
-                location.reload();
+            let good;
+            switch($(dom).text()){
+                case '-讚':
+                    $(dom).text("-收回讚")
+                    good=parseInt($(dom).prev().prev().text())+1
+                break;
+                case '-收回讚':
+                    $(dom).text("-讚")
+                    good=parseInt($(dom).prev().prev().text())-1
+                    break;
+                }
+                
+                $(dom).prev().prev().text(good)
+
+                //location.reload();
         })
     }
 

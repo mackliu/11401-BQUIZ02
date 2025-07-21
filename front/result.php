@@ -11,9 +11,7 @@ $options=$Que->all(['subject_id'=>$_GET['id']]);
 </style>
 <fieldset>
     <legend>目前位置：首頁 > 問卷調查 > <?=$subject['text'];?></legend>
-
     <h3><?=$subject['text'];?></h3>
-
     <?php
     foreach($options as $key => $option):
         $total=($subject['vote']==0)?1:$subject['vote'];
@@ -29,10 +27,8 @@ $options=$Que->all(['subject_id'=>$_GET['id']]);
                 <?=$option['vote'];?>票(<?=round($rate*100);?>%)
             </div>
         </div>
-        
+       
     </div>
-
-
     <?php
     endforeach;
     ?>

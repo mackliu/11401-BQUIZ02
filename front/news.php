@@ -37,7 +37,7 @@
             if(isset($_SESSION['login'])):
                 $chk=$Log->count(['news'=>$row['id'],'user'=>$_SESSION['login']]);
             ?>
-            <a href="#" onclick="good(<?=$row['id'];?>)"><?=($chk)?'收回讚':'讚';?></a>
+            <a href="#" onclick="good(<?=$row['id'];?>,this)"><?=($chk)?'收回讚':'讚';?></a>
             <?php
             endif;
             ?>
@@ -73,9 +73,19 @@ if($now+1<=$pages){
         //$(this).next().find(".all").toggle();
     })
 
-    function good(news){
+    function good(news,dom){
+        //console.log(news,dom);
         $.post("./api/good.php",{news},function(){
-                location.reload();
+            switch($(dom).text()){
+                case '讚':
+                    $(dom).text("收回讚")
+                break;
+                case '收回讚':
+                    $(dom).text("讚")
+                break;
+            }
+
+            //    location.reload();
         })
     }
 </script>
