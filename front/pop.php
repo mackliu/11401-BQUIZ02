@@ -51,13 +51,13 @@
             </div>
         </td>
         <td>
-            <span><?=$row['good'];?></span>個人說
+            <span class='num'><?=$row['good'];?></span>個人說
             <img src="./icon/02B03.jpg" style="width:18px;">
             <?php 
             if(isset($_SESSION['login'])):
                 $chk=$Log->count(['news'=>$row['id'],'user'=>$_SESSION['login']]);
             ?>
-            <a href="#" onclick="good(<?=$row['id'];?>,this)"><?=($chk)?'-收回讚':'-讚';?></a>
+            <a href="#" class='g' data-id="<?=$row['id'];?>"><?=($chk)?'-收回讚':'-讚';?></a>
             <?php
             endif;
                 ?>
@@ -98,7 +98,32 @@ $(".title").hover(
     }
 )
 
-    function good(news,dom){
+
+$('.g').on('click',(event)=>{
+    let target=event.target
+    let news=$(target).data('id');
+    
+        $.post("./api/good.php",{news},()=>{
+        let good;
+        switch($(target).text()){
+            case '-讚':
+                $(target).text("-收回讚")
+                good=parseInt($(target).prev().prev().text())+1
+            break;
+            case '-收回讚':
+                $(target).text("-讚")
+                good=parseInt($(target).prev().prev().text())-1
+                break;
+            }
+            
+            $(target).prev().prev().text(good)
+            //location.reload();
+        })
+
+})
+
+
+/*     function good(news,dom){
         $.post("./api/good.php",{news},function(){
             let good;
             switch($(dom).text()){
@@ -116,6 +141,6 @@ $(".title").hover(
 
                 //location.reload();
         })
-    }
+    } */
 
 </script>
